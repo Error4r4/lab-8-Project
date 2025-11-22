@@ -35,15 +35,14 @@ public class StudentDashboardFrame extends JFrame {
 
         JButton logoutBtn = new JButton("Logout");
         logoutBtn.addActionListener(e -> {
-            dispose(); // اغلاق الـ Dashboard الحالي
-            new LoginFrame(); // فتح Login Frame جديد
+            dispose();
+            new LoginFrame();
         });
         topPanel.add(logoutBtn, BorderLayout.EAST);
-
         add(topPanel, BorderLayout.NORTH);
 
         // Available Courses
-        JPanel availablePanel = new JPanel(new BorderLayout(10,10));
+        JPanel availablePanel = new JPanel(new BorderLayout(10, 10));
         searchField = new JTextField();
         searchField.setToolTipText("Search courses...");
         availablePanel.add(searchField, BorderLayout.NORTH);
@@ -84,7 +83,7 @@ public class StudentDashboardFrame extends JFrame {
         add(tabbedPane, BorderLayout.CENTER);
         setVisible(true);
 
-        // Search
+        // Search functionality
         searchField.addKeyListener(new KeyAdapter() {
             public void keyReleased(KeyEvent e) {
                 refreshAvailableCourses(searchField.getText());
@@ -96,6 +95,7 @@ public class StudentDashboardFrame extends JFrame {
     }
 
     public void refreshAvailableCourses() { refreshAvailableCourses(""); }
+
     private void refreshAvailableCourses(String filter){
         availableModel.setRowCount(0);
         List<Course> courses = courseService.getAvailableCourses(student);
@@ -105,6 +105,7 @@ public class StudentDashboardFrame extends JFrame {
                 availableModel.addRow(new Object[]{c.getCourseId(), c.getTitle(), instName, "Enroll"});
             }
         }
+        ((AbstractTableModel)availableTable.getModel()).fireTableDataChanged();
     }
 
     public void refreshEnrolledCourses(){
@@ -113,6 +114,7 @@ public class StudentDashboardFrame extends JFrame {
             String instName = (c.getInstructor()!=null) ? c.getInstructor().getUsername() : "Unknown";
             enrolledModel.addRow(new Object[]{c.getCourseId(), c.getTitle(), instName, student.getProgress(c), "View"});
         }
+        ((AbstractTableModel)enrolledTable.getModel()).fireTableDataChanged();
     }
 
     // ====== Renderers ======
@@ -137,20 +139,29 @@ public class StudentDashboardFrame extends JFrame {
             this.button = new JButton(btnText);
             this.button.setOpaque(true);
             this.action = action;
-            button.addActionListener(e -> fireEditingStopped());
+
+            button.addActionListener(e -> {
+                if(clicked && courseId != -1){
+                    action.action(courseId);
+                }
+                fireEditingStopped();
+            });
         }
 
+        @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column){
-            if(row >=0 && row < table.getRowCount()){
+            if(row >= 0 && row < table.getRowCount()){
                 Object idObj = table.getValueAt(row,0);
-                courseId = (idObj instanceof Integer) ? (Integer)idObj : -1;
-            } else courseId = -1;
+                courseId = (idObj instanceof Integer) ? (Integer) idObj : -1;
+            } else {
+                courseId = -1;
+            }
             clicked = true;
             return button;
         }
 
+        @Override
         public Object getCellEditorValue(){
-            if(clicked && courseId!=-1) action.action(courseId);
             clicked = false;
             return "";
         }
