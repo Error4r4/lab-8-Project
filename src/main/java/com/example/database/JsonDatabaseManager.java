@@ -1,3 +1,4 @@
+// ================= JsonDatabaseManager =================
 package com.example.database;
 
 import com.example.models.*;
@@ -6,8 +7,7 @@ import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class JsonDatabaseManager {
 
@@ -39,8 +39,7 @@ public class JsonDatabaseManager {
         users = loadUsers();
         courses = loadCourses();
 
-        fixCourseRelationships();
-        fixCounters();
+        fixRelationshipsAndCounters();
     }
 
     public static JsonDatabaseManager getInstance() {
@@ -87,66 +86,43 @@ public class JsonDatabaseManager {
         }
     }
 
-    private void fixCourseRelationships() {
-
+    /**
+     * يربط كل الكائنات ببعضها ويضبط counters
+     */
+    private void fixRelationshipsAndCounters() {
+        // ربط الـ instructor في كل Course
         for (Course c : courses) {
-
             if (c.getInstructorEmail() != null) {
-                Instructor inst = (Instructor) users.stream()
+                Instructor inst = users.stream()
                         .filter(u -> u instanceof Instructor && u.getEmail().equals(c.getInstructorEmail()))
+                        .map(u -> (Instructor) u)
                         .findFirst().orElse(null);
-
-                c.setInstructor(inst);
-
-                if (inst != null) {
-                    if (inst.getCreatedCourses() == null)
-                        inst.setCreatedCourses(new ArrayList<>());
-
-                    if (!inst.getCreatedCourses().contains(c))
-                        inst.getCreatedCourses().add(c);
-                }
+                c.setInstructor(inst); // sets instructor AND updates inst.createdCourses
             }
 
-            if (c.getLessons() == null)
-                c.setLessons(new ArrayList<>());
-
-            if (c.getEnrolledStudents() == null)
-                c.setEnrolledStudents(new ArrayList<>());
-
-            if (c.getStatus() == null)
-                c.setStatus(CourseStatus.PENDING);
+            if (c.getLessons() == null) c.setLessons(new ArrayList<>());
+            if (c.getEnrolledStudentIds() == null) c.setEnrolledStudentIds(new ArrayList<>());
+            if (c.getStatus() == null) c.setStatus(CourseStatus.PENDING);
         }
 
+        // ربط الطلاب بالكورسات
         for (User u : users) {
-            if (u instanceof Student s && s.getEnrolledCourseIds() != null) {
-                List<Course> enrolledList = new ArrayList<>();
-                for (Integer id : s.getEnrolledCourseIds()) {
-                    Course found = courses.stream()
-                            .filter(cr -> cr.getCourseId() == id)
-                            .findFirst().orElse(null);
-                    if (found != null)
-                        enrolledList.add(found);
-                }
-            }
-        }
-    }
-
-    private void fixCounters() {
-        int maxCourseId = 0;
-        int maxLessonId = 0;
-
-        for (Course c : courses) {
-            if (c.getCourseId() > maxCourseId) maxCourseId = c.getCourseId();
-            if (c.getLessons() != null) {
-                for (Lesson l : c.getLessons()) {
-                    if (l.getLessonId() > maxLessonId)
-                        maxLessonId = l.getLessonId();
+            if (u instanceof Student s) {
+                if (s.getEnrolledCourseIds() == null) continue;
+                for (Integer cid : s.getEnrolledCourseIds()) {
+                    Course c = courses.stream().filter(cr -> cr.getCourseId() == cid).findFirst().orElse(null);
+                    if (c != null) {
+                        if (!c.getEnrolledStudentIds().contains(s.getUserId()))
+                            c.getEnrolledStudentIds().add(s.getUserId());
+                    }
                 }
             }
         }
 
-        Course.setCourseCounter(maxCourseId + 1);
-        Lesson.setLessonCounter(maxLessonId + 1);
+        // fix counters
+        Course.setCourseCounter(courses.stream().mapToInt(Course::getCourseId).max().orElse(0)+1);
+        Lesson.setLessonCounter(courses.stream().flatMap(c -> c.getLessons().stream()).mapToInt(Lesson::getLessonId).max().orElse(0)+1);
+        User.setUserCounter(users.stream().mapToInt(User::getUserId).max().orElse(0)+1);
     }
 
     // =================== Save ===================
@@ -163,70 +139,25 @@ public class JsonDatabaseManager {
     }
 
     // =================== CRUD ===================
-    public void addUser(User user) {
-        if (user == null) return;
-        users.add(user);
-        saveUsers();
-    }
-
-    public void addCourse(Course course) {
-        if (course == null) return;
-        courses.add(course);
-        saveCourses();
-    }
-
-    // =================== Certificates ===================
-    public void addCertificateToStudent(int studentId, Certificate certificate) {
-        for (User u : users) {
-            if (u instanceof Student s && s.getUserId() == studentId) {
-                s.addCertificate(certificate); // استخدم addCertificate بدل setCertificates
+    public void addUser(User user) { if(user == null) return; users.add(user); saveUsers(); }
+    public void updateUser(User updated) {
+        for(int i=0;i<users.size();i++){
+            if(users.get(i).getUserId() == updated.getUserId()){
+                users.set(i, updated);
                 saveUsers();
                 return;
             }
         }
     }
 
-    // =================== Quiz Results ===================
-    public void saveQuizResult(int studentId, int lessonId, int score) {
-        for (User u : users) {
-            if (u instanceof Student s && s.getUserId() == studentId) {
-                s.saveQuizScore(lessonId, score);
-                saveUsers();
+    public void addCourse(Course course) { if(course == null) return; courses.add(course); saveCourses(); }
+    public void updateCourse(Course updated) {
+        for(int i=0;i<courses.size();i++){
+            if(courses.get(i).getCourseId() == updated.getCourseId()){
+                courses.set(i, updated);
+                saveCourses();
                 return;
             }
-        }
-    }
-
-    // =================== Admin Course Approval ===================
-    public List<Course> getPendingCourses() {
-        List<Course> pending = new ArrayList<>();
-        for (Course c : courses) {
-            if (c.getStatus() == CourseStatus.PENDING)
-                pending.add(c);
-        }
-        return pending;
-    }
-
-    public void approveCourse(int courseId, int adminId) {
-        Course c = courses.stream()
-                .filter(x -> x.getCourseId() == courseId)
-                .findFirst().orElse(null);
-        if (c != null) {
-            c.setStatus(CourseStatus.APPROVED);
-            c.setApprovedByAdminId(adminId);
-            saveCourses();
-        }
-    }
-
-    public void rejectCourse(int courseId, int adminId, String reason) {
-        Course c = courses.stream()
-                .filter(x -> x.getCourseId() == courseId)
-                .findFirst().orElse(null);
-        if (c != null) {
-            c.setStatus(CourseStatus.REJECTED);
-            c.setApprovedByAdminId(adminId);
-            c.setRejectionReason(reason);
-            saveCourses();
         }
     }
 
