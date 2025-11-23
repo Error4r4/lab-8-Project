@@ -55,6 +55,10 @@ public class AdminDashboardFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(pendingTable);
         add(scrollPane, BorderLayout.CENTER);
 
+        if (pendingTable.isEditing()) {
+            pendingTable.getCellEditor().stopCellEditing();
+        }
+
         refreshPendingCourses();
 
         setVisible(true);
@@ -129,6 +133,9 @@ public class AdminDashboardFrame extends JFrame {
             }
         }
 
+        if (pendingTable.isEditing()) {
+            pendingTable.getCellEditor().stopCellEditing();
+        }
         refreshPendingCourses();
     }
 

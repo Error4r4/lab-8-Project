@@ -114,9 +114,24 @@
         "email": "yossef@gmail.com",
         "passwordHash": "bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a",
         "role": "student"
+      },
+      {
+        "enrolledCourseIds": [
+          4
+        ],
+        "completedLessonIds": [],
+        "quizScores": {},
+        "passedQuizzes": {},
+        "certificates": [],
+        "userId": 19,
+        "username": "hamdy",
+        "email": "hamdy@gmail.com",
+        "passwordHash": "937377f056160fc4b15e0b770c67136a5f03c15205b4d3bf918268fefa2c6d0a",
+        "role": "student"
       }
     ],
-    "status": "PENDING"
+    "status": "APPROVED",
+    "approvedByAdminId": 17
   },
   {
     "courseId": 5,
@@ -235,7 +250,8 @@
         "role": "student"
       }
     ],
-    "status": "PENDING"
+    "status": "APPROVED",
+    "approvedByAdminId": 17
   },
   {
     "courseId": 7,
@@ -276,6 +292,82 @@
         "role": "student"
       }
     ],
-    "status": "PENDING"
+    "status": "REJECTED",
+    "approvedByAdminId": 17,
+    "rejectionReason": "a"
+  },
+  {
+    "courseId": 8,
+    "title": "Database",
+    "description": "CCE",
+    "instructor": {
+      "userId": 18,
+      "username": "Hamada",
+      "email": "hamada@gmail.com",
+      "passwordHash": "91b4d142823f7d20c5f08df69122de43f35f057a988d9619f6d3138485c9a203",
+      "role": "instructor"
+    },
+    "instructorEmail": "hamada@gmail.com",
+    "lessons": [
+      {
+        "lessonId": 7,
+        "title": "a",
+        "content": "a",
+        "resources": []
+      },
+      {
+        "lessonId": 8,
+        "title": "b",
+        "content": "b",
+        "resources": []
+      },
+      {
+        "lessonId": 9,
+        "title": "c",
+        "content": "c",
+        "resources": []
+      }
+    ],
+    "enrolledStudents": [
+      {
+        "enrolledCourseIds": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "completedLessonIds": [
+          1,
+          2,
+          6,
+          5
+        ],
+        "quizScores": {
+          "6": 100
+        },
+        "passedQuizzes": {
+          "1": true
+        },
+        "certificates": [
+          {
+            "certificateId": "db0e3515-dbe8-401a-a2a5-36fd8e242200",
+            "studentId": 2,
+            "courseId": 5,
+            "issueDate": "2025-11-23"
+          }
+        ],
+        "userId": 2,
+        "username": "yossef",
+        "email": "yossef@gmail.com",
+        "passwordHash": "bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a",
+        "role": "student"
+      }
+    ],
+    "status": "APPROVED",
+    "approvedByAdminId": 17
   }
 ]

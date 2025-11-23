@@ -82,6 +82,7 @@ public class StudentDashboardFrame extends JFrame {
 
         add(tabbedPane, BorderLayout.CENTER);
 
+
         // ================= Search Listener =================
         searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e) { refreshAvailableCourses(searchField.getText()); }
@@ -90,6 +91,7 @@ public class StudentDashboardFrame extends JFrame {
         });
 
         // ================= Refresh All Tables =================
+
         refreshAvailableCourses();
         refreshEnrolledCourses();
         refreshCertificates();
@@ -98,11 +100,19 @@ public class StudentDashboardFrame extends JFrame {
     }
 
     // ================= Refresh Available Courses =================
-    public void refreshAvailableCourses() { refreshAvailableCourses(""); }
+    public void refreshAvailableCourses() {
+        if (availableTable.isEditing()) {
+            availableTable.getCellEditor().stopCellEditing();
+        }
+        refreshAvailableCourses(""); }
     private void refreshAvailableCourses(String filter) {
+
         availableModel.setRowCount(0);
         List<Course> courses = courseService.getAvailableCourses(student);
         if(courses == null) return;
+        if (availableTable.isEditing()) {
+            availableTable.getCellEditor().stopCellEditing();
+        }
 
         for(Course c : courses){
             if(filter.isEmpty() || c.getTitle().toLowerCase().contains(filter.toLowerCase())){
@@ -116,6 +126,13 @@ public class StudentDashboardFrame extends JFrame {
             availableTable.getColumn("Action").setCellEditor(new ButtonEditor(new JCheckBox(), "Enroll", courseId -> {
                 Course c = courseService.getCourseById(courseId);
                 if(c != null && !student.getEnrolledCourses().contains(c)){
+                    if(c.getStatus() != CourseStatus.APPROVED){
+                        JOptionPane.showMessageDialog(this,
+                                "This course is not approved yet.",
+                                "Not Allowed",
+                                JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
                     student.enrollCourse(c);
                     courseService.saveCourses();
                     refreshEnrolledCourses();
@@ -127,6 +144,9 @@ public class StudentDashboardFrame extends JFrame {
 
     // ================= Refresh Enrolled Courses =================
     public void refreshEnrolledCourses() {
+        if (enrolledTable.isEditing()) {
+            enrolledTable.getCellEditor().stopCellEditing();
+        }
         enrolledModel.setRowCount(0);
         List<Course> courses = student.getEnrolledCourses();
         if(courses == null) return;
@@ -148,6 +168,9 @@ public class StudentDashboardFrame extends JFrame {
 
     // ================= Refresh Certificates =================
     public void refreshCertificates() {
+        if (certificateTable.isEditing()) {
+            certificateTable.getCellEditor().stopCellEditing();
+        }
         certificateModel.setRowCount(0);
         List<Certificate> certs = student.getCertificates();
         if(certs == null) return;
