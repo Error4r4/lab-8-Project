@@ -1,2 +1,35 @@
-D:\New folder\My-Github\Lab-7\src\main\java\com\example\Main.java
-D:\New folder\My-Github\Lab-7\src\main\java\com\example\database\jsonDataBaseManager.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\services\AuthService.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\Admin.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\Enrollment.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\Student.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\User.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\Quiz.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\LoginFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\LessonManagementFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\StudentAnswer.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\services\AdminService.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\services\LessonService.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\QuizFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\Course.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\ChartFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\Main.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\Lesson.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\CourseManagementFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\Question.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\AdminDashboardFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\utils\RuntimeTypeAdapterFactory.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\LessonViewerFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\CreateCourseFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\InstructorDashboardFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\SignupFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\utils\CertificateGenerator.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\StudentDashboardFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\LessonListFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\QuizCreationFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\Certificate.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\Instructor.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\CourseStatus.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\services\CourseService.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\ui\EditCourseFrame.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\database\JsonDatabaseManager.java
+C:\Users\NewVision\IdeaProjects\lab-8-Project\src\main\java\com\example\models\Resource.java
