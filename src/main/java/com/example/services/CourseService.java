@@ -65,4 +65,10 @@ public class CourseService {
     public void addCourse(Course course){ db.addCourse(course); }
 
     public void saveCourses(){ db.saveCourses(); }
+
+    public void deleteCourse(int courseId){
+        db.getCourses().removeIf(c -> c.getCourseId() == courseId);
+        saveCourses();
+    }
+
 }

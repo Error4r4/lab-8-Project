@@ -107,6 +107,7 @@
           2
         ],
         "quizScores": {},
+        "passedQuizzes": {},
         "certificates": [],
         "userId": 2,
         "username": "yossef",
@@ -115,7 +116,8 @@
         "role": "student"
       }
     ],
-    "status": "PENDING"
+    "status": "APPROVED",
+    "approvedByAdminId": 17
   },
   {
     "courseId": 5,
@@ -134,7 +136,40 @@
         "lessonId": 6,
         "title": "aa",
         "content": "aa",
-        "resources": []
+        "resources": [],
+        "quiz": {
+          "title": "choose",
+          "quizId": 1,
+          "questions": [
+            {
+              "questionText": "aaa",
+              "options": [
+                "a",
+                "b",
+                "c",
+                "d"
+              ],
+              "correctAnswer": 0
+            }
+          ],
+          "studentAnswers": [
+            {
+              "studentId": 2,
+              "question": {
+                "questionText": "aaa",
+                "options": [
+                  "a",
+                  "b",
+                  "c",
+                  "d"
+                ],
+                "correctAnswer": 0
+              },
+              "selectedOption": 0
+            }
+          ],
+          "passingScore": 50
+        }
       }
     ],
     "enrolledStudents": [
@@ -152,6 +187,7 @@
           6
         ],
         "quizScores": {},
+        "passedQuizzes": {},
         "certificates": [],
         "userId": 2,
         "username": "yossef",
@@ -191,6 +227,7 @@
           6
         ],
         "quizScores": {},
+        "passedQuizzes": {},
         "certificates": [],
         "userId": 2,
         "username": "yossef",
@@ -231,6 +268,7 @@
           6
         ],
         "quizScores": {},
+        "passedQuizzes": {},
         "certificates": [],
         "userId": 2,
         "username": "yossef",
