@@ -12,7 +12,10 @@ public class Certificate {
 
     public Certificate() {}
 
+<<<<<<< main
     //Constructor
+=======
+>>>>>>> main
     public Certificate(int courseId, int studentId) {
         this.certificateId = UUID.randomUUID().toString();
         this.courseId = courseId;

@@ -93,6 +93,9 @@ public class Student extends User {
         if(allDone && !hasCertificate(course)){
             Certificate cert = CertificateGenerator.generatePDF(this, course);
             addCertificate(cert);
+            // <-- مهم: حفظ المستخدم بعد إضافة الشهادة
+            com.example.database.JsonDatabaseManager.getInstance().saveUsers();
+
             JOptionPane.showMessageDialog(null,"Congratulations! You completed: "+course.getTitle());
         }
     }
