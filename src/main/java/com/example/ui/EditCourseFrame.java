@@ -46,17 +46,17 @@ public class EditCourseFrame extends JFrame {
                 return;
             }
 
-            // ================= Update Course =================
+            //Update Course  
             course.setTitle(title);
             course.setDescription(desc);
 
-            // ================= Ensure Instructor Link =================
+            //Ensure Instructor Link
             Instructor inst = course.getInstructor();
             if(inst != null && !inst.getCreatedCourses().contains(course)){
                 inst.getCreatedCourses().add(course);
             }
 
-            // ================= Save Changes =================
+            //Save Changes
             courseService.saveCourses();
             JsonDatabaseManager.getInstance().saveCourses();
 

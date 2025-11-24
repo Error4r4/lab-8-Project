@@ -29,7 +29,7 @@ public class InstructorDashboardFrame extends JFrame {
 
         JPanel mainPanel = new JPanel(new BorderLayout(10,10));
 
-        // ================= Top Bar (Welcome + Logout) =================
+        //Top Bar (Welcome + Logout)
         JPanel topBar = new JPanel(new BorderLayout());
         topBar.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         JLabel welcomeLabel = new JLabel("Welcome, " + instructor.getUsername());
@@ -44,12 +44,12 @@ public class InstructorDashboardFrame extends JFrame {
         topBar.add(logoutBtn, BorderLayout.EAST);
         add(topBar, BorderLayout.NORTH);
 
-        // ================= Search =================
+        //Search
         searchField = new JTextField();
         searchField.setToolTipText("Search courses...");
         mainPanel.add(searchField, BorderLayout.NORTH);
 
-        // ================= Table =================
+        //Table
         String[] columns = {"ID","Title","Students","Manage Lessons","View Students","Insights","Add Quiz","Delete"};
         tableModel = new DefaultTableModel(columns,0){
             public boolean isCellEditable(int row,int column){ return column >= 3; }
@@ -57,7 +57,7 @@ public class InstructorDashboardFrame extends JFrame {
         courseTable = new JTable(tableModel);
         mainPanel.add(new JScrollPane(courseTable), BorderLayout.CENTER);
 
-        // ======= Column Buttons =======
+        //Column Buttons
         addButtonToTable("Manage Lessons", courseId -> {
             Course c = courseService.getCourseById(courseId);
             if(c != null){
@@ -99,7 +99,6 @@ public class InstructorDashboardFrame extends JFrame {
                     return;
                 }
 
-                // عرض اختيار الدرس
                 String[] lessonTitles = lessons.stream().map(Lesson::getTitle).toArray(String[]::new);
                 String selected = (String) JOptionPane.showInputDialog(
                         this,
@@ -136,7 +135,7 @@ public class InstructorDashboardFrame extends JFrame {
             }
         });
 
-        // ================= Create Course =================
+        //Create Course
         JPanel createPanel = new JPanel(new GridLayout(3,2,10,10));
         createPanel.add(new JLabel("Course Title:"));
         JTextField titleField = new JTextField();
@@ -166,7 +165,7 @@ public class InstructorDashboardFrame extends JFrame {
             }
         });
 
-        // ================= Layout =================
+        //Layout
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.add("My Courses", mainPanel);
         tabbedPane.add("Create Course", createPanel);
@@ -174,7 +173,7 @@ public class InstructorDashboardFrame extends JFrame {
 
         refreshCourses();
 
-        // ================= Search Listener =================
+        //Search Listener
         searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e) { refreshCourses(searchField.getText()); }
             public void removeUpdate(javax.swing.event.DocumentEvent e) { refreshCourses(searchField.getText()); }
@@ -184,7 +183,7 @@ public class InstructorDashboardFrame extends JFrame {
         setVisible(true);
     }
 
-    // ================= Refresh Table =================
+    //Refresh Table
     private void refreshCourses(){ refreshCourses(""); }
 
     private void refreshCourses(String filter){
@@ -208,7 +207,7 @@ public class InstructorDashboardFrame extends JFrame {
         }
     }
 
-    // ================= Button Helpers =================
+    //Button Helpers
     private void addButtonToTable(String columnName, ButtonAction action){
         courseTable.getColumn(columnName).setCellRenderer(new ButtonRenderer());
         courseTable.getColumn(columnName).setCellEditor(new ButtonEditor(columnName, action));

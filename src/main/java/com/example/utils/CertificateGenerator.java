@@ -17,11 +17,11 @@ public class CertificateGenerator {
         Certificate cert = new Certificate(course.getCourseId(), student.getId());
 
         try {
-            // تنظيف اسم الكورس من أي رموز قد تسبب مشاكل
+            
             String safeCourseTitle = course.getTitle().replaceAll("[^a-zA-Z0-9_\\- ]", "");
             String defaultFileName = "Certificate_" + student.getUsername() + "_" + safeCourseTitle + ".pdf";
 
-            // اختر مكان الحفظ
+            
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setSelectedFile(new File(defaultFileName));
             int option = fileChooser.showSaveDialog(null);

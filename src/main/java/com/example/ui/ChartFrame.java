@@ -20,10 +20,10 @@ public class ChartFrame extends JFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        // ================= Student Performance =================
+        //Student Performance
         DefaultCategoryDataset performanceDataset = new DefaultCategoryDataset();
         for(Student s : course.getEnrolledStudents()){
-            int progress = s.getProgress(course); // نسبة الاكتمال
+            int progress = s.getProgress(course); 
             performanceDataset.addValue(progress, s.getUsername(), "Progress");
         }
         JFreeChart performanceChart = ChartFactory.createBarChart(
@@ -34,10 +34,10 @@ public class ChartFrame extends JFrame {
         );
         tabbedPane.add("Student Progress", new ChartPanel(performanceChart));
 
-        // ================= Quiz Averages =================
+        //Quiz Averages
         DefaultCategoryDataset quizDataset = new DefaultCategoryDataset();
         course.getLessons().forEach(lesson -> {
-            double avg = lesson.getQuizAverage(); // افترض عندك method بتحسب متوسط الاختبارات
+            double avg = lesson.getQuizAverage();
             quizDataset.addValue(avg, "Average", lesson.getTitle());
         });
         JFreeChart quizChart = ChartFactory.createLineChart(
@@ -48,7 +48,7 @@ public class ChartFrame extends JFrame {
         );
         tabbedPane.add("Quiz Averages", new ChartPanel(quizChart));
 
-        // ================= Completion Percentages =================
+        //Completion Percentages
         DefaultCategoryDataset completionDataset = new DefaultCategoryDataset();
         course.getLessons().forEach(lesson -> {
             int completed = (int) course.getEnrolledStudents().stream()

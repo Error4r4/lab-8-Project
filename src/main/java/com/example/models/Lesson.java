@@ -13,7 +13,7 @@ public class Lesson {
     private Quiz quiz;
 
 
-    public Lesson() {                   // ★ مهم لـ Gson
+    public Lesson() {                   
         this.lessonId = lessonCounter++;
         this.resources = new ArrayList<>();
     }
@@ -25,11 +25,11 @@ public class Lesson {
         this.resources = new ArrayList<>();
     }
 
-    // ==== Setters needed for JSON ====
+    //Setters needed for JSON
     public void setLessonId(int id){
         this.lessonId = id;
         if(id >= lessonCounter)
-            lessonCounter = id + 1;    // ★ يمنع تكرار IDs بعد reload
+            lessonCounter = id + 1;    
     }
 
     public void setResources(List<String> resources){
@@ -48,7 +48,7 @@ public class Lesson {
         return resources;
     }
 
-    // ==== Getters & Setters ====
+    //Getters & Setters
     public int getLessonId() { return lessonId; }
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = (title != null) ? title : this.title; }
@@ -60,7 +60,7 @@ public class Lesson {
 
     public static void setLessonCounter(int value) { lessonCounter = value; }
 
-    // ==== Insights ====
+    //Insights
     public double getQuizAverage() {
         if (quiz == null) return 0;
         return quiz.getAverageScore();

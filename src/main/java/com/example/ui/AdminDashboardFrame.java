@@ -27,7 +27,7 @@ public class AdminDashboardFrame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        // ================= TOP BAR =================
+        //Top Bar
         JPanel topPanel = new JPanel(new BorderLayout());
         JLabel welcomeLabel = new JLabel("Welcome, " + adminUser.getUsername());
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
@@ -35,8 +35,8 @@ public class AdminDashboardFrame extends JFrame {
         JButton logoutBtn = new JButton("Logout");
         logoutBtn.setFocusPainted(false);
         logoutBtn.addActionListener(e -> {
-            dispose(); // اقفل Frame الحالية
-            new LoginFrame(); // افتح شاشة اللوجين
+            dispose(); 
+            new LoginFrame(); 
         });
 
         topPanel.add(welcomeLabel, BorderLayout.WEST);
@@ -44,7 +44,7 @@ public class AdminDashboardFrame extends JFrame {
 
         add(topPanel, BorderLayout.NORTH);
 
-        // ================= Pending Courses Table =================
+        //Pending Courses Table
         String[] columns = {"ID", "Title", "Instructor", "Description", "Status", "Action"};
         pendingModel = new DefaultTableModel(columns, 0) {
             public boolean isCellEditable(int row, int column) { return column == 5; }
@@ -65,7 +65,7 @@ public class AdminDashboardFrame extends JFrame {
     }
 
 
-    // ================= LOAD PENDING =================
+    //Load Pending Courses
     private void refreshPendingCourses() {
         pendingModel.setRowCount(0);
 
@@ -91,7 +91,7 @@ public class AdminDashboardFrame extends JFrame {
     }
 
 
-    // ================= REVIEW DIALOG =================
+    //Review Dialog
     private void showApproveDeclineDialog(int courseId) {
         Course c = adminService.getPendingCourses()
                 .stream()
@@ -140,7 +140,7 @@ public class AdminDashboardFrame extends JFrame {
     }
 
 
-    // ================= Renderers & Editors =================
+    //Renderers & Editors
     class ButtonRenderer extends JButton implements TableCellRenderer {
         public ButtonRenderer() { setOpaque(true); }
         public Component getTableCellRendererComponent(

@@ -19,7 +19,7 @@ public class Course {
     private Integer approvedByAdminId = null;
     private String rejectionReason = null;
 
-    // ======== مهم جداً لـ GSON ========
+    //GSON
     public Course() {
         this.courseId = courseCounter++;
         this.lessons = new ArrayList<>();
@@ -38,7 +38,7 @@ public class Course {
     public void setCourseId(int id){
         this.courseId = id;
         if(id >= courseCounter)
-            courseCounter = id + 1;   // ★ يمنع تكرار الـ IDs
+            courseCounter = id + 1;   
     }
 
     public void setInstructorEmail(String email){ this.instructorEmail = email; }
@@ -51,7 +51,7 @@ public class Course {
 
     public void setEnrolledStudents(List<Student> students){ this.enrolledStudents = (students != null) ? students : new ArrayList<>(); }
 
-    // ======== Instructor Handling ========
+    //Instructor Handling
     public void setInstructor(Instructor instructor){
         this.instructor = instructor;
         this.instructorEmail = (instructor != null) ? instructor.getEmail() : null;

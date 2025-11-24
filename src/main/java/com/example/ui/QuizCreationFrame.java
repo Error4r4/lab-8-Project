@@ -11,7 +11,7 @@ import java.util.List;
 
 public class QuizCreationFrame extends JFrame {
 
-    private Lesson lesson;  // بدل Course
+    private Lesson lesson;
     private JTextField quizTitleField;
     private JTextField questionField;
     private List<JTextField> optionFields;
@@ -29,14 +29,14 @@ public class QuizCreationFrame extends JFrame {
         JPanel panel = new JPanel(new BorderLayout(10,10));
         panel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
-        // Quiz Title
+        //Quiz Title
         JPanel titlePanel = new JPanel(new BorderLayout());
         titlePanel.add(new JLabel("Quiz Title:"), BorderLayout.NORTH);
         quizTitleField = new JTextField();
         titlePanel.add(quizTitleField, BorderLayout.CENTER);
         panel.add(titlePanel, BorderLayout.NORTH);
 
-        // Question Input
+        //Question Input
         JPanel questionPanel = new JPanel(new GridLayout(7,1,5,5));
         questionPanel.setBorder(BorderFactory.createTitledBorder("Add Question"));
 
@@ -58,7 +58,7 @@ public class QuizCreationFrame extends JFrame {
 
         panel.add(questionPanel, BorderLayout.CENTER);
 
-        // Buttons
+        //Buttons
         JPanel btnPanel = new JPanel(new FlowLayout());
         JButton addQuestionBtn = new JButton("Add Question");
         JButton finishBtn = new JButton("Finish Quiz");
@@ -67,7 +67,7 @@ public class QuizCreationFrame extends JFrame {
         btnPanel.add(finishBtn);
         panel.add(btnPanel, BorderLayout.SOUTH);
 
-        // Add Question Logic
+        //Add Question Logic
         addQuestionBtn.addActionListener(e -> {
             String qText = questionField.getText().trim();
             List<String> opts = new ArrayList<>();
@@ -89,7 +89,7 @@ public class QuizCreationFrame extends JFrame {
             }
         });
 
-        // Finish Quiz Logic
+        //Finish Quiz Logic
         finishBtn.addActionListener(e -> {
             String quizTitle = quizTitleField.getText().trim();
             if(quizTitle.isEmpty()) quizTitle = "Untitled Quiz";

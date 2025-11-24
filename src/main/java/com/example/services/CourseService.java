@@ -20,17 +20,14 @@ public class CourseService {
         return instance;
     }
 
-    // الكورسات المتاحة للطالب (غير مسجل فيها)
-    // الكورسات المتاحة للطالب (Approved فقط + مش مسجل فيها)
+    //available courses
     public List<Course> getAvailableCourses(Student student){
         List<Course> available = new ArrayList<>();
         for(Course c : db.getCourses()){
 
-            // لازم يكون الكورس Approved فقط
             if(c.getStatus() != CourseStatus.APPROVED)
                 continue;
 
-            // مش مسجل فيه بالفعل
             if(!student.getEnrolledCourseIds().contains(c.getCourseId())) {
                 available.add(c);
             }
@@ -39,7 +36,7 @@ public class CourseService {
     }
 
 
-    // كورسات الطالب التي لم يكملها بالكامل بعد
+    //Pending courses for a student
     public List<Course> getPendingCourses(Student student){
         List<Course> pending = new ArrayList<>();
         for(Course c : student.getEnrolledCourses()){
@@ -57,7 +54,7 @@ public class CourseService {
         return pending;
     }
 
-    // نسخة للـ Admin: كل الكورسات التي في حالة Pending
+    //Pending courses (all)
     public List<Course> getPendingCourses(){
         List<Course> pending = new ArrayList<>();
         for(Course c : db.getCourses()){
