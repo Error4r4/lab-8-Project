@@ -24,7 +24,7 @@ public class Student extends User {
     }
     public Student(){ this("","",""); }
 
-    // ===== Courses =====
+    //Courses
     public List<Course> getEnrolledCourses(){
         List<Course> list = new ArrayList<>();
         for(int id: enrolledCourseIds){
@@ -43,13 +43,13 @@ public class Student extends User {
         }
     }
 
-    // ===== Lessons =====
+    //Lessons
     public boolean markLessonCompleted(Course course, Lesson lesson){
         if(lesson!=null && !completedLessonIds.contains(lesson.getLessonId())){
             completedLessonIds.add(lesson.getLessonId());
             JsonDatabaseManager.getInstance().saveUsers();
 
-            // تحقق من إكمال الكورس بالكامل
+
             if(course != null) checkCourseCompletion(course);
 
             return true;
@@ -68,7 +68,7 @@ public class Student extends User {
         return lesson!=null && completedLessonIds.contains(lesson.getLessonId());
     }
 
-    // ===== Quiz =====
+    //Quiz
     public void saveQuizScore(int lessonId,int score){ quizScores.put(lessonId,score); }
     public Integer getQuizScore(int lessonId){ return quizScores.getOrDefault(lessonId,null); }
     public boolean hasPassedQuiz(Quiz quiz){ return passedQuizzes.getOrDefault(quiz.getQuizId(),false); }
@@ -76,10 +76,11 @@ public class Student extends User {
     public void markQuizPassed(Quiz quiz, Course course){
         if(quiz == null) return;
         passedQuizzes.put(quiz.getQuizId(), true);
-        // تحقق إذا الطالب أكمل كل الدروس والكويزات في الكورس
+        
         if(course != null) checkCourseCompletion(course);
     }
 
+    //Course Completion Check
     private void checkCourseCompletion(Course course){
         boolean allDone = true;
         for(Lesson l: course.getLessons()){
@@ -99,7 +100,7 @@ public class Student extends User {
         }
     }
 
-    // ===== Certificates =====
+    //Certificates
     public boolean hasCertificate(Course course){
         return certificates.stream().anyMatch(c -> c.getCourseId()==course.getCourseId());
     }
@@ -107,7 +108,7 @@ public class Student extends User {
     public List<Certificate> getCertificates(){ return certificates; }
     public void addCertificate(Certificate c){ certificates.add(c); }
 
-    // ===== Getters/Setters =====
+    //Getters/Setters
     public List<Integer> getEnrolledCourseIds() { return enrolledCourseIds; }
     public void setEnrolledCourseIds(List<Integer> e) { enrolledCourseIds = e!=null?e:new ArrayList<>(); }
     public List<Integer> getCompletedLessonIds() { return completedLessonIds; }

@@ -30,7 +30,7 @@ public class CourseManagementFrame extends JFrame {
 
         JTabbedPane tabbedPane = new JTabbedPane();
 
-        // ================= Lessons Tab =================
+        //Lessons Tab
         JPanel lessonPanel = new JPanel(new BorderLayout(10,10));
         String[] columns = {"ID", "Title", "Action"};
         lessonModel = new DefaultTableModel(columns, 0) {
@@ -51,7 +51,7 @@ public class CourseManagementFrame extends JFrame {
 
         tabbedPane.add("Lessons", lessonPanel);
 
-        // ================= Students Tab =================
+        //Students Tab
         JPanel studentPanel = new JPanel(new BorderLayout(10,10));
         DefaultTableModel studentModel = new DefaultTableModel(new String[]{"ID", "Name", "Email"},0);
         JTable studentTable = new JTable(studentModel);
@@ -126,7 +126,7 @@ public class CourseManagementFrame extends JFrame {
         }
     }
 
-    // ================= Button Renderer/Editor =================
+    //Button Renderer/Editor 
     class ButtonRenderer extends JButton implements javax.swing.table.TableCellRenderer {
         public ButtonRenderer(){ setOpaque(true); }
         public Component getTableCellRendererComponent(JTable table,Object value,boolean isSelected,boolean hasFocus,int row,int column){

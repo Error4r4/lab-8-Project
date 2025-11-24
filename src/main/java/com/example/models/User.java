@@ -9,7 +9,7 @@ public abstract class User implements Serializable {
     protected String passwordHash;
     protected String role;
 
-    private static int userCounter = 1; // عداد فريد لكل Users
+    private static int userCounter = 1; 
 
     public User(String username, String email, String passwordHash, String role){
         this.userId = userCounter++;
@@ -19,21 +19,16 @@ public abstract class User implements Serializable {
         this.role = role;
     }
 
-    // ==== ID Getter (للتوافق مع student.getId()) ====
+    //Getters/Setters
     public int getId() { return userId; }
-
-    // ==== Getters ====
     public int getUserId() { return userId; }
     public String getUsername() { return username; }
     public String getEmail() { return email; }
     public String getPasswordHash() { return passwordHash; }
     public String getRole() { return role; }
 
-    // ==== Setters ====
     public void setUsername(String username) { this.username = username; }
     public void setEmail(String email) { this.email = email; }
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
-
-    // ==== Reset counter (للتأكد بعد load من JSON) ====
     public static void setUserCounter(int value) { userCounter = value; }
 }

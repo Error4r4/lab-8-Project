@@ -149,7 +149,7 @@ public class JsonDatabaseManager {
         Lesson.setLessonCounter(maxLessonId + 1);
     }
 
-    // =================== Save ===================
+    //Save
     public void saveUsers() {
         try (Writer writer = new FileWriter(usersFilePath)) {
             gson.toJson(users, writer);
@@ -162,7 +162,7 @@ public class JsonDatabaseManager {
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    // =================== CRUD ===================
+    //CRUD
     public void addUser(User user) {
         if (user == null) return;
         users.add(user);
@@ -175,18 +175,18 @@ public class JsonDatabaseManager {
         saveCourses();
     }
 
-    // =================== Certificates ===================
+    //Certificates
     public void addCertificateToStudent(int studentId, Certificate certificate) {
         for (User u : users) {
             if (u instanceof Student s && s.getUserId() == studentId) {
-                s.addCertificate(certificate); // استخدم addCertificate بدل setCertificates
+                s.addCertificate(certificate);
                 saveUsers();
                 return;
             }
         }
     }
 
-    // =================== Quiz Results ===================
+    //Quiz Results
     public void saveQuizResult(int studentId, int lessonId, int score) {
         for (User u : users) {
             if (u instanceof Student s && s.getUserId() == studentId) {
@@ -197,7 +197,7 @@ public class JsonDatabaseManager {
         }
     }
 
-    // =================== Admin Course Approval ===================
+    //Admin Course Approval
     public List<Course> getPendingCourses() {
         List<Course> pending = new ArrayList<>();
         for (Course c : courses) {
@@ -230,7 +230,7 @@ public class JsonDatabaseManager {
         }
     }
 
-    // =================== Getters ===================
+    //Getters
     public List<User> getUsers() { return users; }
     public List<Course> getCourses() { return courses; }
 }

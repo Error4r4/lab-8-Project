@@ -12,6 +12,10 @@ public class Certificate {
 
     public Certificate() {}
 
+<<<<<<< main
+    //Constructor
+=======
+>>>>>>> main
     public Certificate(int courseId, int studentId) {
         this.certificateId = UUID.randomUUID().toString();
         this.courseId = courseId;
@@ -19,7 +23,7 @@ public class Certificate {
         this.issueDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
 
-    // Getters
+    //Getters
     public String getCertificateId() { return certificateId; }
     public int getStudentId() { return studentId; }
     public int getCourseId() { return courseId; }

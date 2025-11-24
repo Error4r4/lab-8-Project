@@ -90,7 +90,7 @@ public class QuizFrame extends JFrame {
         JsonDatabaseManager.getInstance().saveUsers();
         CourseService.getInstance().saveCourses();
 
-        // عرض النتيجة مع الإجابات الصحيحة
+        //Show Results
         StringBuilder result = new StringBuilder();
         result.append("Your Score: ").append(percent).append("%\n\nCorrect Answers:\n");
         for(int i=0;i<questions.size();i++){

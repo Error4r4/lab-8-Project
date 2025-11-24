@@ -35,21 +35,20 @@ public class LessonViewerFrame extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout(10,10));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
-        // محتوى الدرس
+        //Course Content
         JTextArea contentArea = new JTextArea(lesson.getContent());
         contentArea.setWrapStyleWord(true);
         contentArea.setLineWrap(true);
         contentArea.setEditable(false);
         mainPanel.add(new JScrollPane(contentArea), BorderLayout.CENTER);
 
-        // أزرار الإجراءات
+        //Buttons Panel
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         JButton markBtn = new JButton("Mark Lesson as Completed");
         markBtn.addActionListener(e -> markCompleted());
         buttonPanel.add(markBtn);
 
-        // إذا فيه Quiz مرتبط بالدرس
         if(lesson.getQuiz() != null){
             JButton quizBtn = new JButton("Take Quiz");
             quizBtn.addActionListener(e -> new QuizFrame(lesson.getQuiz(), student, lesson, course, dashboard));
@@ -66,7 +65,7 @@ public class LessonViewerFrame extends JFrame {
         if(student.markLessonCompleted(course, lesson)){
             courseService.saveCourses();
             JOptionPane.showMessageDialog(this, "Lesson marked as completed!");
-            dashboard.refreshEnrolledCourses(); // تحديث الجدول مباشرة
+            dashboard.refreshEnrolledCourses();
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Lesson already completed!", "Info", JOptionPane.INFORMATION_MESSAGE);

@@ -22,9 +22,7 @@ public class AdminService {
         return instance;
     }
 
-    // ======================================================
-    //              COURSES PENDING REVIEW
-    // ======================================================
+    //Courses Pending Review
     public List<Course> getPendingCourses() {
         List<Course> pending = new ArrayList<>();
         for (Course c : db.getCourses()) {
@@ -34,9 +32,7 @@ public class AdminService {
         return pending;
     }
 
-    // ======================================================
-    //                      APPROVE
-    // ======================================================
+    //Approve Course
     public boolean approveCourse(int courseId, Admin admin) {
         Course c = getCourseById(courseId);
         if (c == null || admin == null) return false;
@@ -49,9 +45,7 @@ public class AdminService {
         return true;
     }
 
-    // ======================================================
-    //                      REJECT
-    // ======================================================
+    //Reject Course
     public boolean rejectCourse(int courseId, Admin admin, String reason) {
         Course c = getCourseById(courseId);
         if (c == null || admin == null) return false;
@@ -64,9 +58,7 @@ public class AdminService {
         return true;
     }
 
-    // ======================================================
-    //                  VIEW ALL APPROVED
-    // ======================================================
+    //View All Approved Courses
     public List<Course> getApprovedCourses() {
         List<Course> approved = new ArrayList<>();
         for (Course c : db.getCourses()) {
@@ -76,9 +68,7 @@ public class AdminService {
         return approved;
     }
 
-    // ======================================================
-    //                   INTERNAL GETTER
-    // ======================================================
+    //Internal Getter
     private Course getCourseById(int id) {
         for (Course c : db.getCourses()) {
             if (c.getCourseId() == id)

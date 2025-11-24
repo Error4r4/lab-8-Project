@@ -15,7 +15,7 @@ public class AuthService {
 
     private AuthService() {
         db = JsonDatabaseManager.getInstance();
-        createDefaultAdmin(); // إنشاء Admin لو مش موجود
+        createDefaultAdmin(); 
     }
 
     public static AuthService getInstance() {
@@ -31,7 +31,7 @@ public class AuthService {
         if (!adminExists) {
             String username = "admin";
             String email = "admin@system.com";
-            String password = "admin123"; // ممكن تغيره
+            String password = "admin123"; 
 
             String hashed = hashPassword(password);
             User admin = new Admin(username, email, hashed);

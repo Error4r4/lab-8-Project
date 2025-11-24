@@ -8,8 +8,8 @@ public class Quiz {
     private String title;
     private int quizId;
     private List<Question> questions;
-    private List<StudentAnswer> studentAnswers;
-    private int passingScore = 50;
+    private List<StudentAnswer> studentAnswers; 
+    private int passingScore = 50; 
 
     public Quiz() {
         this.quizId = quizCounter++;
@@ -44,6 +44,7 @@ public class Quiz {
     public int getPassingScore() { return passingScore; }
     public void setPassingScore(int score) { this.passingScore = score; }
 
+    //Grade Calculation
     public int calculateScoreForStudent(Student student) {
         if (questions == null || questions.isEmpty()) return 0;
         int correctCount = 0;

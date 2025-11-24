@@ -55,7 +55,7 @@ public class LessonListFrame extends JFrame {
             boolean unlocked = l.isUnlocked(student, course);
             String title = l.getTitle() + (unlocked ? " (Open)" : " (Locked)");
             if(student.hasCompletedLesson(l)){
-                title += " ✅"; // علامة للدرس المكتمل
+                title += " ✅";
             }
             listModel.addElement(title);
         }
